@@ -13,7 +13,7 @@ export default function Torneos({ torneos: externalTorneos, setTorneos: external
   const [internalTorneos, setInternalTorneos] = useState(INITIAL_TORNEOS);
   
   const torneos = externalTorneos || internalTorneos;
-  const setTorneos = externalSetTorneos || setInternalSetTorneos;
+  const setTorneos = externalSetTorneos || setInternalTorneos;
 
   const [nombre, setNombre] = useState('');
   const [juego, setJuego] = useState('');
@@ -55,7 +55,7 @@ export default function Torneos({ torneos: externalTorneos, setTorneos: external
     } else {
       // Alta (C de CRUD)
       const nuevoTorneo = {
-        id: Date.now(),
+        id: Math.max(...torneos.map(t => t.id), 0) + 1,
         nombre: nombre.trim(),
         juego: juego.trim(),
         premio: Number(premio)

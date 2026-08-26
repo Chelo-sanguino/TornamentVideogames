@@ -54,7 +54,7 @@ export default function Equipos({ torneos = [], equipos: externalEquipos, setEqu
     } else {
       // Alta (C de CRUD)
       const nuevoEquipo = {
-        id: Date.now(),
+        id: Math.max(...equipos.map(e => e.id), 0) + 1,
         nombreEquipo: nombreEquipo.trim(),
         capitan: capitan.trim(),
         torneoId: selectedTorneoId
