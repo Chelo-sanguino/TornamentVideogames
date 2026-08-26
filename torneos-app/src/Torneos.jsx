@@ -8,7 +8,7 @@ const INITIAL_TORNEOS = [
   { id: 4, nombre: "Evolution Championship", juego: "Street Fighter 6", premio: 12000 }
 ];
 
-export default function Torneos({ torneos: externalTorneos, setTorneos: externalSetTorneos }) {
+export default function Torneos({ torneos: externalTorneos, setTorneos: externalSetTorneos, equipos = [] }) {
   // --- Estados Principales ---
   const [internalTorneos, setInternalTorneos] = useState(INITIAL_TORNEOS);
   
@@ -411,6 +411,7 @@ export default function Torneos({ torneos: externalTorneos, setTorneos: external
                 {filteredTorneos.map((torneo) => {
                   const isDeleting = deleteConfirmationId === torneo.id;
                   const isEditingThis = editingId === torneo.id;
+                  const hasTeams = equipos.some(e => e.torneoId === torneo.id);
 
                   return (
                     <article 
@@ -477,6 +478,22 @@ export default function Torneos({ torneos: externalTorneos, setTorneos: external
                               </svg>
                             </button>
                           </div>
+                        ) : hasTeams ? (
+                          
+                          <div className="flex items-center justify-between gap-3 bg-slate-950/80 p-2.5 rounded-xl border border-amber-500/30 animate-fadeIn text-xs max-w-full">
+                            <div className="flex items-center gap-1.5 text-amber-400 font-medium">
+                              <span>⚠️</span>
+                              <span className="leading-tight">Tiene equipos inscritos. Elimínalos primero.</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setDeleteConfirmationId(null)}
+                              className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px] px-2.5 py-1 rounded-md transition-all duration-200 uppercase tracking-wider shrink-0"
+                            >
+                              Cerrar
+                            </button>
+                          </div>
+
                         ) : (
                           
                           <div className="flex items-center gap-2 bg-slate-950/60 p-1.5 rounded-xl border border-rose-500/20 animate-fadeIn">

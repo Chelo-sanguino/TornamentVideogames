@@ -73,7 +73,7 @@ function App() {
       {/* Área de Contenido Dinámico */}
       <main className="flex-grow">
         {activeTab === 'torneos' ? (
-          <Torneos torneos={torneos} setTorneos={setTorneos} />
+          <Torneos torneos={torneos} setTorneos={setTorneos} equipos={equipos} />
         ) : (
           <Equipos torneos={torneos} equipos={equipos} setEquipos={setEquipos} />
         )}
